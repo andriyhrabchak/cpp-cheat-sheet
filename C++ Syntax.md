@@ -65,15 +65,16 @@ class Polygon {
 private:
     int num_sides;    	// Number of sides
 
-// Protected members and methods are only accessible in the class definition or by classes who extend this class
+// Protected members and methods are only accessible in the class definition or by classes who extend 
+// this class
 protected:
     std::string name;   // Name of the polygon
 
 // Public members and methods are accessible to anyone who creates an instance of the class
 public:
     // Constructors
-    Polygon(const int num_sides, const std::string & name); // <--- This constructor takes the number of sides and 
-                                                            // name as arguments
+    Polygon(const int num_sides, const std::string & name); // <--- This constructor takes the number  
+                                                            // of sides and name as arguments
 
     // Getters and Setters
     int GetNumSides(void) const;
@@ -97,18 +98,20 @@ The class *definition* typically goes in the `.cpp` file. The *definition* exten
 
 // Constructor
 // You must scope the method definitions with the class name (Polygon::)
-// Also, see the section on the 'explicit' keyword for a warning about constructors with exactly one argument
+// Also, see the section on the 'explicit' keyword for a warning about constructors with exactly 
+// one argument
 Polygon::Polygon(const int num_sides, const std::string & name) {
-    this->num_sides = num_sides;	// 'this' is a pointer to the instance of the class. Members are accessed via 
-                                    // the -> operator
-    this->name = name;			// In this case you need to use 'this->...' to avoid shadowing the member variable 
-                                // since the argument shares the same name
+    this->num_sides = num_sides;	// 'this' is a pointer to the instance of the class. Members  
+                                    // are accessed via the -> operator
+    this->name = name;			// In this case you need to use 'this->...' to avoid shadowing  
+                                // the member variable since the argument shares the same name
 }
 
 // Get the number of sides
-int Polygon::GetNumSides(void) const {	// The 'const' here tells the compiler that you guarantee that you won't 
-                                        // modify the object when this function is called. This allows it to perform 
-                                        // optimizations that it otherwise may not be able to do
+int Polygon::GetNumSides(void) const {	// The 'const' here tells the compiler that you guarantee 
+                                        // that you won't modify the object when this function is 
+                                        // called. This allows it to perform optimizations that 
+                                        // it otherwise may not be able to do
     return this->num_sides;
 }
 
@@ -189,7 +192,8 @@ It is important to note that this feature is often overused by beginners and som
 ```c++
 // File: rectangle.h
 
-#include <string>       // <--- Explicitly include the string header, even though polygon.h also includes it
+#include <string>       // <--- Explicitly include the string header, even though polygon.h also 
+                        // includes it
 
 #include "polygon.h"	// <--- You must include the declaration in order to extend the class
 
@@ -216,7 +220,8 @@ public:
     const int GetWidth(void) const { return this->width; }
     void SetWidth(const int) { this->width = width; }
 
-    // <--- NOTE: Again, the getters/setters for 'num_sides' and 'name' are already inherited from Polygon
+    // <--- NOTE: Again, the getters/setters for 'num_sides' and 'name' are already inherited 
+    // from Polygon
 
     // Other Methods
     const int Area(void) const;
@@ -229,17 +234,19 @@ public:
 ```c++
 // File: rectangle.cpp
 
-#include "rectangle.h"	// <--- Only need to include 'Rectangle', since 'Polygon' is included in 'rectangle.h'
+#include "rectangle.h"	// <--- Only need to include 'Rectangle', since 'Polygon' is included 
+                        // in 'rectangle.h'
 
-// This constructor calls the superclass (Polygon) constructor and sets the name and number of sides to '4', and then 
-// sets the length and width
+// This constructor calls the superclass (Polygon) constructor and sets the name and number 
+// of sides to '4', and then sets the length and width
 Rectangle::Rectangle(const std::string &name, const int length, const int width) : Polygon(4, name) {
     this->length = length;
     this->width = width;
 }
 
-// This constructor calls the superclass (Polygon) constructor, but sets the length and width to a constant value
-// The explicit keyword is used to restrict the use of the constructor. See section below for more detail
+// This constructor calls the superclass (Polygon) constructor, but sets the length and width to a 
+// constant value. The explicit keyword is used to restrict the use of the constructor. See section 
+// below for more detail
 explicit Rectangle::Rectangle(const std::string &name) : Polygon(4, name) {
     this->length = 1;
     this->width = 1;
@@ -247,8 +254,8 @@ explicit Rectangle::Rectangle(const std::string &name) : Polygon(4, name) {
 
 // Compute the area of the rectangle
 int Rectangle::Area(void) const {
-    return length * width;		// <--- Note that you don't explicitly need 'this->', you can directly use the member 
-                                // variables
+    return length * width;		// <--- Note that you don't explicitly need 'this->', you can  
+                                // directly use the member variables
 }
 ```
 
@@ -331,7 +338,8 @@ Rectangle rectangle(2.0, 5.0);
 Circle circle(1.0);
 
 // Point to the rectangle
-Shape * unknown_shape = &rectangle; // Could point to *any* shape, Rectangle, Circle, Triangle, Dodecagon, etc.
+Shape * unknown_shape = &rectangle; // Could point to *any* shape, Rectangle, Circle, Triangle, 
+                                    // Dodecagon, etc.
 
 unknown_shape->Area();  // Returns 10.0
 
@@ -381,9 +389,9 @@ public:
 
     // Override the Shape::Area() method with an implementation specific to Circle
     //
-    // NOTE: there is an 'override' keyword that was introduced in C++11 and is optional: it is used
-    // to enforce that the method is indeed an overriding method of a virtual base method at compile time
-    // and is used as follows:
+    // NOTE: there is an 'override' keyword that was introduced in C++11 and is optional: it 
+    // is used to enforce that the method is indeed an overriding method of a virtual base 
+    // method at compile time and is used as follows:
     double Area() const override {
         return M_PI * radius * radius; // pi*r^2
     }
@@ -754,8 +762,8 @@ T Add(const T & a, const T & b) {
 int main() {
     Add<int>(3, 5);		    // int version
     Add<double>(3.2, 5.8);  // double
-    Add(3.45f, 5.0f);	    // implicit float version: we leave off the <float> here, since it can deduce the type from 
-                            // the context
+    Add(3.45f, 5.0f);	    // implicit float version: we leave off the <float> here,  
+                            // since it can deduce the type from the context
 
     Complex a {1, 2};	    // Custom class
     Complex b {5, 3};
@@ -855,7 +863,8 @@ cout << "Hello, World" << endl;             // <--- BAD: pollutes the global nam
 ```c++
 #include <iostream>
 
-std::cout << "Hello, World" << std::endl;   // <--- GOOD: It's clear that you're using symbols from the standard namespace
+std::cout << "Hello, World" << std::endl;   // <--- GOOD: It's clear that you're using 
+                                            // symbols from the standard namespace
 ```
 
 ### 2.2 References and Pointers
@@ -883,8 +892,8 @@ In the following code, assume a 32-bit system, in which case the size of a point
 int a = 10;                         // Ends up at memory address '0x2A000084', for example
 int b = 20;                         // Ends up at memory address '0x2A000088'
 
-int * ptr = nullptr;                // ptr is a separate variable whose type is 'pointer to int' and whose value 
-                                    // has been initialized to '0x00000000'
+int * ptr = nullptr;                // ptr is a separate variable whose type is 'pointer to int'  
+                                    // and whose value has been initialized to '0x00000000'
 printf("ptr = %p\n");               // Prints: 0x0
 
 ptr = &a;                           // The value of ptr is now the address of the variable 'a'
